@@ -15,6 +15,13 @@ def main():
     game_clock = pygame.time.Clock()
     dt = 0.0
 
+    # groups
+    updatable = pygame.sprite.Group()
+    drawable  = pygame.sprite.Group()
+
+    # add all Player class instances before instantiation
+    Player.containers = (updatable, drawable)
+
     # spawn player object in middle of screen
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
@@ -22,8 +29,12 @@ def main():
     while True:
         log_state()
         screen.fill("black")
-        player.update(dt)
-        player.draw(screen) # re-render the player each frame
+
+        for u in updatable: # loop over each item in group and update individually
+            u.update(dt)
+        for d in drawable: # loop over each item in group and re-render the player each frame
+            d.draw(screen)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # user closes window
                 return
