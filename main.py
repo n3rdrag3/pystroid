@@ -28,7 +28,7 @@ def main():
     # add all necessary classes to groups before instantiation
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
-    Shot.containers = (updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
     AsteroidField.containers = (updatable)
 
     # spawn player object in middle of screen
@@ -44,6 +44,8 @@ def main():
             u.update(dt)
         for d in drawable: # loop over each item in group and re-render the player each frame
             d.draw(screen)
+        for s in shots:
+            s.draw(screen)
 
         for asteroid in asteroids:
             if asteroid.collides_with(player):
