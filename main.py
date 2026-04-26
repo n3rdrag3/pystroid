@@ -54,6 +54,12 @@ def main():
                 sys.exit()
             else:
                 pass
+
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    log_event("asteroid_shot")
+                    pygame.sprite.Sprite.kill(shot)
+                    pygame.sprite.Sprite.kill(asteroid)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # user closes window
